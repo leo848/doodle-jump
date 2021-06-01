@@ -40,7 +40,7 @@ class Ball {
 
 			let iinter = setInterval(() => {
 				if (fakeYoff <= yOff) {
-					if (!gameover.isPlaying()) {
+					if (!sounds.gameover.isPlaying()) {
 						try {
 							sounds.gameover.play();
 						} catch (e) {}

@@ -35,6 +35,8 @@ function preload (){
 function setup (){
 	createCanvas(400, 600);
 
+	randomSeed(100);
+
 	ball = new Ball(200, height - 100);
 	plateaus.push(new Plateau(0, height - 20, width, 'grey'));
 
