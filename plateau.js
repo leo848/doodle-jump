@@ -25,7 +25,7 @@ class Plateau {
 				let ran = random();
 				if (ran < 1 / 2) {
 					try {
-						bounce.play();
+						sounds.bounce.play();
 					} catch (e) {}
 					plateaus.push(
 						new Plateau(
@@ -37,7 +37,7 @@ class Plateau {
 					);
 				} else if (ran < 2 / 3) {
 					try {
-						bounce2.play();
+						sounds.bounce2.play();
 					} catch (e) {}
 					plateaus.push(
 						new HorizontalMovingPlateau(
@@ -50,7 +50,7 @@ class Plateau {
 					);
 				} else if (ran < 5 / 6) {
 					try {
-						bounce2.play();
+						sounds.bounce2.play();
 					} catch (e) {}
 					plateaus.push(
 						new VerticalMovingPlateau(
@@ -65,7 +65,7 @@ class Plateau {
 					);
 				} else {
 					try {
-						bounce.play();
+						sounds.bounce.play();
 					} catch (e) {}
 					plateaus.push(
 						new BreakingPlateau(
@@ -80,8 +80,8 @@ class Plateau {
 			}
 			if (this.break) {
 				push();
-				brick.setVolume(1.5);
-				brick.play();
+				sounds.brick.setVolume(1.5);
+				sounds.brick.play();
 				pop();
 				this.delete();
 			}

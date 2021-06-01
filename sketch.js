@@ -6,6 +6,7 @@ let debugMode = false;
 let highscore = window.localStorage.getItem('dj_highscore') || 0;
 
 let smfont, snfont;
+let sounds = {};
 let bounce, bounce2, gameover, scored, ascend, brick;
 
 function restart (){
@@ -21,13 +22,14 @@ function restart (){
 function preload (){
 	smfont = loadFont('sm.ttf');
 	snfont = loadFont('sn.otf');
-
-	bounce = loadSound('sounds/bounce.mp3');
-	bounce2 = loadSound('sounds/bounce2.mp3');
-	gameover = loadSound('sounds/gameover.mp3');
-	scored = loadSound('sounds/scored.mp3');
-	ascend = loadSound('sounds/ascend.mp3');
-	brick = loadSound('sounds/brick.mp3');
+	sounds = {
+		bounce   : loadSound('sounds/bounce.mp3'),
+		bounce2  : loadSound('sounds/bounce2.mp3'),
+		gameover : loadSound('sounds/gameover.mp3'),
+		scored   : loadSound('sounds/scored.mp3'),
+		ascend   : loadSound('sounds/ascend.mp3'),
+		brick    : loadSound('sounds/brick.mp3'),
+	};
 }
 
 function setup (){

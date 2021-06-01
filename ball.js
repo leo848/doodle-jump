@@ -42,7 +42,7 @@ class Ball {
 				if (fakeYoff <= yOff) {
 					if (!gameover.isPlaying()) {
 						try {
-							gameover.play();
+							sounds.gameover.play();
 						} catch (e) {}
 					}
 					fill(175);
@@ -52,7 +52,7 @@ class Ball {
 					fakeYoff -= -(yOff / 500).toFixed(0);
 				} else {
 					fakeYoff = yOff;
-					scored.play();
+					sounds.scored.play();
 					if (yOff > highscore) {
 						highscore = yOff;
 						window.localStorage.setItem(
