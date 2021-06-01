@@ -46,6 +46,7 @@ class Plateau {
 								random(80, 125),
 							50,
 							120,
+							random(0.75, 2.5),
 						),
 					);
 				} else if (ran < 5 / 6) {
@@ -61,6 +62,7 @@ class Plateau {
 							120,
 							plateaus[plateaus.length - 1].pos.y -
 								random(300, 500),
+							random(0.75, 2.5),
 						),
 					);
 				} else {
@@ -107,9 +109,9 @@ class Plateau {
 }
 
 class HorizontalMovingPlateau extends Plateau {
-	constructor (_x, y, width, color) {
+	constructor (_x, y, width, color, speed) {
 		super(0, y, width, color);
-		this.vel = createVector(1.5, 0);
+		this.vel = createVector(speed, 0);
 	}
 	update () {
 		if (this.pos.x < 0) {
@@ -126,11 +128,11 @@ class HorizontalMovingPlateau extends Plateau {
 }
 
 class VerticalMovingPlateau extends Plateau {
-	constructor (x, y, width, color, maxY) {
+	constructor (x, y, width, color, maxY, speed) {
 		super(x, y, width, color);
 		this.minY = y;
 		this.maxY = maxY;
-		this.vel = createVector(0, -1.5);
+		this.vel = createVector(0, -speed);
 	}
 
 	update () {
@@ -166,5 +168,3 @@ class BreakingPlateau extends Plateau {
 		}
 	}
 }
-
-

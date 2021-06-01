@@ -2,21 +2,26 @@ let ball;
 let plateaus = [];
 let yOff = 0;
 let debugMode = false;
+let currentlyPaused = false;
 
 let highscore = window.localStorage.getItem('dj_highscore') || 0;
+let playedGames =
+	JSON.parse(window.localStorage.getItem('dj_playedGames')) || [];
 
 let smfont, snfont;
 let sounds = {};
-let bounce, bounce2, gameover, scored, ascend, brick;
 
 function restart (){
-	// plateaus = [];
-	// yOff = 0;
-	// highscore = window.localStorage.getItem('dj_highscore') || 0;
+	sounds.gameover.stop();
+	plateaus = [];
+	yOff = 0;
+	highscore = window.localStorage.getItem('dj_highscore') || 0;
+	playedGames =
+		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [];
 
-	// setup();
+	setup();
 
-	window.location.reload();
+	//window.location.reload();
 }
 
 function preload (){
@@ -50,6 +55,7 @@ function setup (){
 }
 
 function draw (){
+	rectMode(CORNER);
 	background(32);
 	if (debugMode) {
 		text(
@@ -87,5 +93,17 @@ function draw (){
 function keyPressed (){
 	if (key == 'r') {
 		restart();
+	}
+
+	if (key == 'p') {
+		currentlyPaused = !currentlyPaused;
+		if (currentlyPaused) {
+			noLoop();
+			fill('white');
+			rectMode(CENTER);
+			rect(width / 2, height / 2, 100, 100);
+		} else {
+			loop();
+		}
 	}
 }
