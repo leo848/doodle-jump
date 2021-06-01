@@ -107,3 +107,10 @@ function keyPressed (){
 		}
 	}
 }
+
+function mousePressed (){
+	return false;
+}
+function touchStart (){
+	return false;
+}
