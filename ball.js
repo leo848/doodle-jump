@@ -24,12 +24,17 @@ class Ball {
 			let fakeYoff = 0;
 			game.yOff = Number(game.yOff.toFixed(0));
 
+			game.stats.allScores.push(game.yOff);
+
 			fill('black');
 			text('Game over!', width / 2, height / 2 - 10);
 
+
+
+
 			textSize(18);
 			text(
-				'Drücke [' + game.cLetter +'], um erneut zu spielen!',
+				'Drücke [' + game.cLetter + '], um erneut zu spielen!',
 				width / 2,
 				height / 2 + 87,
 			);
@@ -50,6 +55,11 @@ class Ball {
 					fill('black');
 					text(fakeYoff.toFixed(0), width / 2, 100);
 					fakeYoff -= -(game.yOff / 500).toFixed(0);
+
+					window.localStorage.setItem(
+						'dj_allScores',
+						JSON.stringify(game.stats.allScores),
+					);
 				} else {
 					fakeYoff = game.yOff;
 					game.sounds.scored.play();

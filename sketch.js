@@ -15,6 +15,25 @@ let game = {
 	sounds          : {},
 	resLetters      : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
 };
+function setup (){
+	createCanvas(400, 600);
+
+	//randomSeed('Leo');
+
+	game.ball = new Ball(200, height - 100);
+	game.cLetter = random(game.resLetters.split(''));
+	game.plateaus.push(new Plateau(0, height - 20, width, 'grey'));
+
+	let tempPHeight = 400;
+	while (tempPHeight > -750) {
+		game.plateaus.push(
+			new Plateau(random(width - 50), tempPHeight, 50, 200),
+		);
+		tempPHeight -= random(75, 125);
+	}
+
+	loop();
+}
 
 function restart (){
 	game.sounds.gameover.stop();
@@ -42,26 +61,6 @@ function preload (){
 		ascend   : loadSound('sounds/ascend.mp3'),
 		brick    : loadSound('sounds/brick.mp3'),
 	};
-}
-
-function setup (){
-	createCanvas(400, 600);
-
-	//randomSeed('Leo');
-
-	game.ball = new Ball(200, height - 100);
-	game.cLetter = random(game.resLetters.split(''));
-	game.plateaus.push(new Plateau(0, height - 20, width, 'grey'));
-
-	let tempPHeight = 400;
-	while (tempPHeight > -750) {
-		game.plateaus.push(
-			new Plateau(random(width - 50), tempPHeight, 50, 200),
-		);
-		tempPHeight -= random(75, 125);
-	}
-
-	loop();
 }
 
 function draw (){
