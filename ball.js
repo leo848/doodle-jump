@@ -6,7 +6,7 @@ class Ball {
 	}
 
 	update () {
-		if (this.pos.y > height - yOff) {
+		if (this.pos.y > height - game.yOff) {
 			print('gmae over');
 			noLoop();
 			fill(200);
@@ -14,15 +14,15 @@ class Ball {
 			rectMode(CENTER);
 			textAlign(CENTER, CENTER);
 			textSize(50);
-			textFont(snfont);
+			textFont(game.fonts.snfont);
 
-			translate(0, -yOff);
+			translate(0, -game.yOff);
 
 			rect(width / 2, height / 2, width - 80, 100, 20);
 			rect(width / 2, height / 2 + 90, width - 80, 40, 20);
 
 			let fakeYoff = 0;
-			yOff = Number(yOff.toFixed(0));
+			game.yOff = Number(game.yOff.toFixed(0));
 
 			fill('black');
 			text('Game over!', width / 2, height / 2 - 10);
@@ -39,25 +39,25 @@ class Ball {
 			textAlign(CENTER, CENTER);
 
 			let iinter = setInterval(() => {
-				if (fakeYoff <= yOff) {
-					if (!sounds.gameover.isPlaying()) {
+				if (fakeYoff <= game.yOff) {
+					if (!game.sounds.gameover.isPlaying()) {
 						try {
-							sounds.gameover.play();
+							game.sounds.gameover.play();
 						} catch (e) {}
 					}
 					fill(175);
 					rect(width / 2, 100, width, 200);
 					fill('black');
 					text(fakeYoff.toFixed(0), width / 2, 100);
-					fakeYoff -= -(yOff / 500).toFixed(0);
+					fakeYoff -= -(game.yOff / 500).toFixed(0);
 				} else {
-					fakeYoff = yOff;
-					sounds.scored.play();
-					if (yOff > highscore) {
-						highscore = yOff;
+					fakeYoff = game.yOff;
+					game.sounds.scored.play();
+					if (game.yOff > game.highscore) {
+						game.highscore = game.yOff;
 						window.localStorage.setItem(
 							'dj_highscore',
-							highscore.toString(),
+							game.highscore.toString(),
 						);
 					}
 					clearInterval(iinter);

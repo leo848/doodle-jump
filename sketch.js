@@ -1,22 +1,22 @@
+let game = {
+	plateaus        : [],
+	yOff            : 0,
+	debugMode       : false,
+	currentlyPaused : false,
+	highscore       : window.localStorage.getItem('dj_highscore') || 0,
+	playedGames     :
+		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
+	fonts: {},sounds: {}
+};
+
 let ball;
-let plateaus = [];
-let yOff = 0;
-let debugMode = false;
-let currentlyPaused = false;
-
-let highscore = window.localStorage.getItem('dj_highscore') || 0;
-let playedGames =
-	JSON.parse(window.localStorage.getItem('dj_playedGames')) || [];
-
-let smfont, snfont;
-let sounds = {};
 
 function restart (){
-	sounds.gameover.stop();
-	plateaus = [];
-	yOff = 0;
-	highscore = window.localStorage.getItem('dj_highscore') || 0;
-	playedGames =
+	game.sounds.gameover.stop();
+	game.plateaus = [];
+	game.yOff = 0;
+	game.highscore = window.localStorage.getItem('dj_highscore') || 0;
+	game.playedGames =
 		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [];
 
 	setup();
@@ -25,9 +25,9 @@ function restart (){
 }
 
 function preload (){
-	smfont = loadFont('sm.ttf');
-	snfont = loadFont('sn.otf');
-	sounds = {
+	game.fonts.smfont = loadFont('sm.ttf');
+	game.fonts.snfont = loadFont('sn.otf');
+	game.sounds = {
 		bounce   : loadSound('sounds/bounce.mp3'),
 		bounce2  : loadSound('sounds/bounce2.mp3'),
 		gameover : loadSound('sounds/gameover.mp3'),
@@ -43,11 +43,13 @@ function setup (){
 	//randomSeed('Leo');
 
 	ball = new Ball(200, height - 100);
-	plateaus.push(new Plateau(0, height - 20, width, 'grey'));
+	game.plateaus.push(new Plateau(0, height - 20, width, 'grey'));
 
 	let tempPHeight = 400;
 	while (tempPHeight > -750) {
-		plateaus.push(new Plateau(random(width - 50), tempPHeight, 50, 200));
+		game.plateaus.push(
+			new Plateau(random(width - 50), tempPHeight, 50, 200),
+		);
 		tempPHeight -= random(75, 125);
 	}
 
@@ -57,7 +59,7 @@ function setup (){
 function draw (){
 	rectMode(CORNER);
 	background(32);
-	if (debugMode) {
+	if (game.debugMode) {
 		text(
 			'ball pos: ' + [ ball.pos.x.toFixed(2), ball.pos.y.toFixed(2) ],
 			10,
@@ -68,9 +70,9 @@ function draw (){
 			10,
 			30,
 		);
-		text('yOff ' + yOff, 10, 50);
+		text('game.yOff ' + game.yOff, 10, 50);
 	}
-	translate(0, yOff);
+	translate(0, game.yOff);
 
 	if (keyIsPressed || mouseIsPressed) {
 		if (key == 'ArrowLeft' || (mouseIsPressed && mouseX < width / 2)) {
@@ -81,9 +83,9 @@ function draw (){
 		}
 	}
 
-	for (let i = 0; i < plateaus.length; i++) {
-		plateaus[i].update();
-		plateaus[i].show();
+	for (let i = 0; i < game.plateaus.length; i++) {
+		game.plateaus[i].update();
+		game.plateaus[i].show();
 	}
 
 	ball.update();
@@ -96,8 +98,8 @@ function keyPressed (){
 	}
 
 	if (key == 'p') {
-		currentlyPaused = !currentlyPaused;
-		if (currentlyPaused) {
+		game.currentlyPaused = !game.currentlyPaused;
+		if (game.currentlyPaused) {
 			noLoop();
 			fill('white');
 			rectMode(CENTER);

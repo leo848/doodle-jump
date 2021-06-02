@@ -13,36 +13,36 @@ class Plateau {
 			ball.vel.y > 0
 		) {
 			ball.vel.y = -6;
-			if (this.pos.y - 400 < -yOff) {
+			if (this.pos.y - 400 < -game.yOff) {
 				let iinterval = setInterval(() => {
-					if (yOff < -(this.pos.y - 400)) {
-						yOff += 2.5;
+					if (game.yOff < -(this.pos.y - 400)) {
+						game.yOff += 2.5;
 					} else {
-						yOff = -(this.pos.y - 400);
+						game.yOff = -(this.pos.y - 400);
 						clearInterval(iinterval);
 					}
 				}, 5);
 				let ran = random();
 				if (ran < 1 / 2) {
 					try {
-						sounds.bounce.play();
+						game.sounds.bounce.play();
 					} catch (e) {}
-					plateaus.push(
+					game.plateaus.push(
 						new Plateau(
 							random(width - 50),
-							plateaus[plateaus.length - 1].pos.y -
+							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(80, 125),
 							50,
 						),
 					);
 				} else if (ran < 2 / 3) {
 					try {
-						sounds.bounce2.play();
+						game.sounds.bounce2.play();
 					} catch (e) {}
-					plateaus.push(
+					game.plateaus.push(
 						new HorizontalMovingPlateau(
 							random(width - 50),
-							plateaus[plateaus.length - 1].pos.y -
+							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(80, 125),
 							50,
 							120,
@@ -51,28 +51,28 @@ class Plateau {
 					);
 				} else if (ran < 5 / 6) {
 					try {
-						sounds.bounce2.play();
+						game.sounds.bounce2.play();
 					} catch (e) {}
-					plateaus.push(
+					game.plateaus.push(
 						new VerticalMovingPlateau(
 							random(width - 50),
-							plateaus[plateaus.length - 1].pos.y -
+							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(100, 120),
 							50,
 							120,
-							plateaus[plateaus.length - 1].pos.y -
+							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(300, 500),
 							random(0.75, 2.5),
 						),
 					);
 				} else {
 					try {
-						sounds.bounce.play();
+						game.sounds.bounce.play();
 					} catch (e) {}
-					plateaus.push(
+					game.plateaus.push(
 						new BreakingPlateau(
 							random(width - 50),
-							plateaus[plateaus.length - 1].pos.y -
+							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(80, 125),
 							50,
 							'brown',
@@ -82,14 +82,14 @@ class Plateau {
 			}
 			if (this.break) {
 				push();
-				sounds.brick.setVolume(1.5);
-				sounds.brick.play();
+				game.sounds.brick.setVolume(1.5);
+				game.sounds.brick.play();
 				pop();
 				this.delete();
 			}
 		}
 
-		if (this.pos.y > height + yOff + 100) {
+		if (this.pos.y > height + game.yOff + 100) {
 			this.delete();
 		}
 	}
@@ -103,7 +103,7 @@ class Plateau {
 
 	delete () {
 		this.update = this.show = this.delete = () => {};
-		plateaus.filter((v) => v.pos.x * v.pos.y !== this.pos.x * this.pos.y);
+		game.plateaus.filter((v) => v.pos.x * v.pos.y !== this.pos.x * this.pos.y);
 		print('deleted smth');
 	}
 }
