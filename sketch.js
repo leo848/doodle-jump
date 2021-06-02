@@ -8,9 +8,8 @@ let game = {
 		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
 	fonts           : {},
 	sounds          : {},
+	resLetters      : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
 };
-
-
 
 function restart (){
 	game.sounds.gameover.stop();
@@ -44,6 +43,7 @@ function setup (){
 	//randomSeed('Leo');
 
 	game.ball = new Ball(200, height - 100);
+	game.cLetter = random(game.resLetters.split(''));
 	game.plateaus.push(new Plateau(0, height - 20, width, 'grey'));
 
 	let tempPHeight = 400;
@@ -62,12 +62,14 @@ function draw (){
 	background(32);
 	if (game.debugMode) {
 		text(
-			'ball pos: ' + [ game.ball.pos.x.toFixed(2), game.ball.pos.y.toFixed(2) ],
+			'ball pos: ' +
+				[ game.ball.pos.x.toFixed(2), game.ball.pos.y.toFixed(2) ],
 			10,
 			10,
 		);
 		text(
-			'ball vel: ' + [ game.ball.vel.x.toFixed(2), game.ball.vel.y.toFixed(2) ],
+			'ball vel: ' +
+				[ game.ball.vel.x.toFixed(2), game.ball.vel.y.toFixed(2) ],
 			10,
 			30,
 		);
@@ -94,7 +96,7 @@ function draw (){
 }
 
 function keyPressed (){
-	if (key == 'r') {
+	if (key == game.cLetter.toLowerCase()) {
 		restart();
 	}
 
@@ -102,9 +104,10 @@ function keyPressed (){
 		game.currentlyPaused = !game.currentlyPaused;
 		if (game.currentlyPaused) {
 			noLoop();
+			filter(BLUR, 5);
 			fill('white');
 			rectMode(CENTER);
-			filter(BLUR, 5);
+
 			rect(width / 2, height / 2, 100, 100);
 		} else {
 			loop();

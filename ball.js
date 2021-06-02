@@ -29,7 +29,7 @@ class Ball {
 
 			textSize(18);
 			text(
-				'Drücke [R], um erneut zu spielen!',
+				'Drücke [' + game.cLetter +'], um erneut zu spielen!',
 				width / 2,
 				height / 2 + 87,
 			);
