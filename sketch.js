@@ -6,10 +6,11 @@ let game = {
 	highscore       : window.localStorage.getItem('dj_highscore') || 0,
 	playedGames     :
 		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
-	fonts: {},sounds: {}
+	fonts           : {},
+	sounds          : {},
 };
 
-let ball;
+
 
 function restart (){
 	game.sounds.gameover.stop();
@@ -42,7 +43,7 @@ function setup (){
 
 	//randomSeed('Leo');
 
-	ball = new Ball(200, height - 100);
+	game.ball = new Ball(200, height - 100);
 	game.plateaus.push(new Plateau(0, height - 20, width, 'grey'));
 
 	let tempPHeight = 400;
@@ -61,12 +62,12 @@ function draw (){
 	background(32);
 	if (game.debugMode) {
 		text(
-			'ball pos: ' + [ ball.pos.x.toFixed(2), ball.pos.y.toFixed(2) ],
+			'ball pos: ' + [ game.ball.pos.x.toFixed(2), game.ball.pos.y.toFixed(2) ],
 			10,
 			10,
 		);
 		text(
-			'ball vel: ' + [ ball.vel.x.toFixed(2), ball.vel.y.toFixed(2) ],
+			'ball vel: ' + [ game.ball.vel.x.toFixed(2), game.ball.vel.y.toFixed(2) ],
 			10,
 			30,
 		);
@@ -76,10 +77,10 @@ function draw (){
 
 	if (keyIsPressed || mouseIsPressed) {
 		if (key == 'ArrowLeft' || (mouseIsPressed && mouseX < width / 2)) {
-			ball.acc.add(createVector(-0.07, 0));
+			game.ball.acc.add(createVector(-0.07, 0));
 		}
 		if (key == 'ArrowRight' || (mouseIsPressed && mouseX > width / 2)) {
-			ball.acc.add(createVector(0.07, 0));
+			game.ball.acc.add(createVector(0.07, 0));
 		}
 	}
 
@@ -88,8 +89,8 @@ function draw (){
 		game.plateaus[i].show();
 	}
 
-	ball.update();
-	ball.show();
+	game.ball.update();
+	game.ball.show();
 }
 
 function keyPressed (){
@@ -103,6 +104,7 @@ function keyPressed (){
 			noLoop();
 			fill('white');
 			rectMode(CENTER);
+			filter(BLUR, 5);
 			rect(width / 2, height / 2, 100, 100);
 		} else {
 			loop();

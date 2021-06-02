@@ -7,12 +7,12 @@ class Plateau {
 
 	update () {
 		if (
-			Math.abs(ball.pos.y - this.pos.y) < 10 &&
-			Math.abs(ball.pos.x - this.pos.x - this.width / 2) <
+			Math.abs(game.ball.pos.y - this.pos.y) < 10 &&
+			Math.abs(game.ball.pos.x - this.pos.x - this.width / 2) <
 				this.width / 2 &&
-			ball.vel.y > 0
+			game.ball.vel.y > 0
 		) {
-			ball.vel.y = -6;
+			game.ball.vel.y = -6;
 			if (this.pos.y - 400 < -game.yOff) {
 				let iinterval = setInterval(() => {
 					if (game.yOff < -(this.pos.y - 400)) {
@@ -158,10 +158,10 @@ class BreakingPlateau extends Plateau {
 	update () {
 		super.update();
 		if (
-			Math.abs(ball.pos.y - this.pos.y) < 10 &&
-			Math.abs(ball.pos.x - this.pos.x - this.width / 2) <
+			Math.abs(game.ball.pos.y - this.pos.y) < 10 &&
+			Math.abs(game.ball.pos.x - this.pos.x - this.width / 2) <
 				this.width / 2 &&
-			ball.vel.y > 0
+			game.ball.vel.y > 0
 		) {
 			print('yes deleted');
 			this.delete();
