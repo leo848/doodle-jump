@@ -4,8 +4,13 @@ let game = {
 	debugMode       : false,
 	currentlyPaused : false,
 	highscore       : window.localStorage.getItem('dj_highscore') || 0,
-	playedGames     :
-		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
+	stats           : {
+		allScores   :
+			JSON.parse(window.localStorage.getItem('dj_allScores')) || [],
+		playedGames :
+			JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
+	},
+
 	fonts           : {},
 	sounds          : {},
 	resLetters      : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
@@ -16,7 +21,9 @@ function restart (){
 	game.plateaus = [];
 	game.yOff = 0;
 	game.highscore = window.localStorage.getItem('dj_highscore') || 0;
-	game.playedGames =
+	game.stats.allScores =
+		JSON.parse(window.localStorage.getItem('dj_allScores')) || [];
+	game.stats.playedGames =
 		JSON.parse(window.localStorage.getItem('dj_playedGames')) || [];
 
 	setup();
