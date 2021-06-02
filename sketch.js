@@ -15,6 +15,19 @@ let game = {
 	sounds          : {},
 	resLetters      : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
 };
+function preload (){
+	game.fonts.smfont = loadFont('sm.ttf');
+	game.fonts.snfont = loadFont('sn.otf');
+	game.sounds = {
+		bounce   : loadSound('sounds/bounce.mp3'),
+		bounce2  : loadSound('sounds/bounce2.mp3'),
+		gameover : loadSound('sounds/gameover.mp3'),
+		scored   : loadSound('sounds/scored.mp3'),
+		ascend   : loadSound('sounds/ascend.mp3'),
+		brick    : loadSound('sounds/brick.mp3'),
+	};
+}
+
 function setup (){
 	createCanvas(400, 600);
 
@@ -48,19 +61,6 @@ function restart (){
 	setup();
 
 	//window.location.reload();
-}
-
-function preload (){
-	game.fonts.smfont = loadFont('sm.ttf');
-	game.fonts.snfont = loadFont('sn.otf');
-	game.sounds = {
-		bounce   : loadSound('sounds/bounce.mp3'),
-		bounce2  : loadSound('sounds/bounce2.mp3'),
-		gameover : loadSound('sounds/gameover.mp3'),
-		scored   : loadSound('sounds/scored.mp3'),
-		ascend   : loadSound('sounds/ascend.mp3'),
-		brick    : loadSound('sounds/brick.mp3'),
-	};
 }
 
 function draw (){
