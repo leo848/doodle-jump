@@ -36,8 +36,10 @@ function setup (){
 	//randomSeed('Leo');
 
 	game.stats.avgStats =
-		game.stats.allScores.reduce((a, b) => a + b) /
-		game.stats.allScores.length;
+		game.stats.allScores.length > 1
+			? game.stats.allScores.reduce((a, b) => a + b) /
+				game.stats.allScores.length
+			: 0;
 
 	game.ball = new Ball(200, height - 100);
 	game.cLetter = random(game.resLetters.split(''));
@@ -92,19 +94,6 @@ function draw (){
 	}
 	translate(0, game.yOff);
 
-	push();
-	rectMode(CENTER);
-	strokeWeight(5);
-
-	stroke(255, 255, 255, 100);
-	//line(0, -game.stats.avgStats, width, -game.stats.avgStats);
-
-	for (let i = 0; i >= -10000; i -= 500) {
-		line(0, i - 100, width, i - 100);
-	}
-	//line(0, -game.stats.avgStats / 2, width, -game.stats.avgStats / 2);
-	pop();
-
 	if (keyIsPressed || mouseIsPressed) {
 		if (key == 'ArrowLeft' || (mouseIsPressed && mouseX < width / 2)) {
 			game.ball.acc.add(createVector(-0.07, 0));
@@ -117,6 +106,28 @@ function draw (){
 	for (let i = 0; i < game.plateaus.length; i++) {
 		game.plateaus[i].update();
 		game.plateaus[i].show();
+	}
+
+	{
+		push();
+		rectMode(CENTER);
+		textAlign(LEFT, CENTER);
+		textSize(20);
+		strokeWeight(5);
+
+		stroke(200, 150, 0, 100);
+		fill(200, 150, 0, 100);
+		//line(0, -game.stats.avgStats, width, -game.stats.avgStats);
+
+		for (let i = -600; i >= -10000; i -= 1000) {
+			line(75, i, width, i);
+		}
+		noStroke();
+		for (let i = -600; i >= -10000; i -= 1000) {
+			text(-i + 400, 10, i - 3);
+		}
+		//line(0, -game.stats.avgStats / 2, width, -game.stats.avgStats / 2);
+		pop();
 	}
 
 	game.ball.update();

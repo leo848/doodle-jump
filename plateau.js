@@ -46,7 +46,7 @@ class Plateau {
 								random(80, 125),
 							50,
 							120,
-							random(0.75, 2.5),
+							random([ 0.75, 1, 1.5, 2, 2.5, 3 ]),
 						),
 					);
 				} else if (ran < 5 / 6) {
@@ -62,7 +62,7 @@ class Plateau {
 							120,
 							game.plateaus[game.plateaus.length - 1].pos.y -
 								random(300, 500),
-							random(0.75, 2.5),
+							random([ 0.75, 1, 1.5, 2, 2.5, 3 ]),
 						),
 					);
 				} else {
@@ -103,7 +103,9 @@ class Plateau {
 
 	delete () {
 		this.update = this.show = this.delete = () => {};
-		game.plateaus.filter((v) => v.pos.x * v.pos.y !== this.pos.x * this.pos.y);
+		game.plateaus.filter(
+			(v) => v.pos.x * v.pos.y !== this.pos.x * this.pos.y,
+		);
 		print('deleted smth');
 	}
 }
