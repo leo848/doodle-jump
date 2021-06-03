@@ -29,9 +29,6 @@ class Ball {
 			fill('black');
 			text('Game over!', width / 2, height / 2 - 10);
 
-
-
-
 			textSize(18);
 			text(
 				'Drücke [' + game.cLetter + '], um erneut zu spielen!',
@@ -54,7 +51,7 @@ class Ball {
 					rect(width / 2, 100, width, 200);
 					fill('black');
 					text(fakeYoff.toFixed(0), width / 2, 100);
-					fakeYoff -= -(game.yOff / 500).toFixed(0);
+					fakeYoff -= -(game.yOff / 500 + 1).toFixed(0);
 
 					window.localStorage.setItem(
 						'dj_allScores',

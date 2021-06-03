@@ -1,7 +1,7 @@
 let game = {
 	plateaus        : [],
 	yOff            : 0,
-	debugMode       : false,
+	debugMode       : window.location.href.startsWith('http://127.0.0.1'),
 	currentlyPaused : false,
 	highscore       : window.localStorage.getItem('dj_highscore') || 0,
 	stats           : {
@@ -31,7 +31,13 @@ function preload (){
 function setup (){
 	createCanvas(400, 600);
 
+	textFont(game.fonts.snfont);
+
 	//randomSeed('Leo');
+
+	game.stats.avgStats =
+		game.stats.allScores.reduce((a, b) => a + b) /
+		game.stats.allScores.length;
 
 	game.ball = new Ball(200, height - 100);
 	game.cLetter = random(game.resLetters.split(''));
@@ -67,6 +73,8 @@ function draw (){
 	rectMode(CORNER);
 	background(32);
 	if (game.debugMode) {
+		textSize(15);
+		textAlign(LEFT, TOP);
 		text(
 			'ball pos: ' +
 				[ game.ball.pos.x.toFixed(2), game.ball.pos.y.toFixed(2) ],
@@ -80,8 +88,22 @@ function draw (){
 			30,
 		);
 		text('game.yOff ' + game.yOff, 10, 50);
+		text('mouse: ' + [ mouseX, mouseY ], 10, 70);
 	}
 	translate(0, game.yOff);
+
+	push();
+	rectMode(CENTER);
+	strokeWeight(5);
+
+	stroke(255, 255, 255, 100);
+	//line(0, -game.stats.avgStats, width, -game.stats.avgStats);
+
+	for (let i = 0; i >= -10000; i -= 500) {
+		line(0, i - 100, width, i - 100);
+	}
+	//line(0, -game.stats.avgStats / 2, width, -game.stats.avgStats / 2);
+	pop();
 
 	if (keyIsPressed || mouseIsPressed) {
 		if (key == 'ArrowLeft' || (mouseIsPressed && mouseX < width / 2)) {
