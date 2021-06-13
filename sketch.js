@@ -1,27 +1,29 @@
 let game = {
-	plateaus        : [],
-	yOff            : 0,
-	debugMode       : window.location.href.startsWith('http://127.0.0.1'),
-	currentlyPaused : false,
-	highscore       : window.localStorage.getItem('dj_highscore') || 0,
-	stats           : {
+	ballPrevPositions : [],
+	plateaus          : [],
+	yOff              : 0,
+	debugMode         : window.location.href.startsWith('http://127.0.0.1'),
+	currentlyPaused   : false,
+	highscore         : window.localStorage.getItem('dj_highscore') || 0,
+	stats             : {
 		allScores   :
 			JSON.parse(window.localStorage.getItem('dj_allScores')) || [],
 		playedGames :
 			JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
 	},
-	options         : {
+	options           : {
 		airFriction                    : 0.997,
 		terminalVelocity               : 100,
 		gravity                        : { x: 0, y: 0.1 },
 		verticalFrameVelocity          : 2.5,
 		wallImpactEnergyReturn         : 0.75,
 		plateauReboundVerticalVelocity : 6,
+		trailLength                    : 15,
 	},
 
-	fonts           : {},
-	sounds          : {},
-	resLetters      : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
+	fonts             : {},
+	sounds            : {},
+	resLetters        : 'ABCDEFGHIJKLMNOQRSTUVWXYZ',
 };
 function preload (){
 	game.fonts.smfont = loadFont('sm.ttf');
