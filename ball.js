@@ -76,17 +76,19 @@ class Ball {
 
 		if (this.pos.x < 0) {
 			this.pos.x++;
-			this.vel.x *= -0.75;
+			this.vel.x *= -game.options.wallImpactEnergyReturn;
 		} else if (this.pos.x > width) {
 			this.pos.x--;
-			this.vel.x *= -0.75;
+			this.vel.x *= -game.options.wallImpactEnergyReturn;
 		}
 
-		this.vel.x *= 0.997;
+		this.vel.x *= game.options.airFriction;
 
-		this.vel.limit(7);
+		this.vel.limit(game.options.terminalVelocity);
 
-		this.acc.add(createVector(0, 0.1));
+		this.acc.add(
+			createVector(game.options.gravity.x, game.options.gravity.y),
+		);
 		this.vel.add(this.acc);
 		this.pos.add(this.vel);
 

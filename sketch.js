@@ -10,6 +10,14 @@ let game = {
 		playedGames :
 			JSON.parse(window.localStorage.getItem('dj_playedGames')) || [],
 	},
+	options         : {
+		airFriction                    : 0.997,
+		terminalVelocity               : 100,
+		gravity                        : { x: 0, y: 0.1 },
+		verticalFrameVelocity          : 2.5,
+		wallImpactEnergyReturn         : 0.75,
+		plateauReboundVerticalVelocity : 6,
+	},
 
 	fonts           : {},
 	sounds          : {},
@@ -50,8 +58,9 @@ function setup (){
 		game.plateaus.push(
 			new Plateau(random(width - 50), tempPHeight, 50, 200),
 		);
-		tempPHeight -= random(75, 125);
+		tempPHeight -= random(60, 125);
 	}
+	textSize(15);
 
 	loop();
 }
@@ -75,7 +84,6 @@ function draw (){
 	rectMode(CORNER);
 	background(32);
 	if (game.debugMode) {
-		textSize(15);
 		textAlign(LEFT, TOP);
 		text(
 			'ball pos: ' +
@@ -93,6 +101,7 @@ function draw (){
 		text('mouse: ' + [ mouseX, mouseY ], 10, 70);
 	}
 	translate(0, game.yOff);
+	textSize(15);
 
 	if (keyIsPressed || mouseIsPressed) {
 		if (key == 'ArrowLeft' || (mouseIsPressed && mouseX < width / 2)) {
@@ -122,10 +131,19 @@ function draw (){
 		for (let i = -600; i >= -10000; i -= 1000) {
 			line(75, i, width, i);
 		}
+
+		stroke(200, 20, 20, 100);
+		line(75, -game.stats.avgStats + 400, width, -game.stats.avgStats + 400);
+
 		noStroke();
+
 		for (let i = -600; i >= -10000; i -= 1000) {
 			text(-i + 400, 10, i - 3);
 		}
+
+		fill(200, 20, 20, 100);
+		text('AVG', 10, -game.stats.avgStats + 396);
+
 		//line(0, -game.stats.avgStats / 2, width, -game.stats.avgStats / 2);
 		pop();
 	}
@@ -142,6 +160,7 @@ function keyPressed (){
 	if (key == 'p') {
 		game.currentlyPaused = !game.currentlyPaused;
 		if (game.currentlyPaused) {
+			filter(BLUR, 5);
 			noLoop();
 			filter(BLUR, 5);
 			fill('white');

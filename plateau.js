@@ -12,11 +12,11 @@ class Plateau {
 				this.width / 2 &&
 			game.ball.vel.y > 0
 		) {
-			game.ball.vel.y = -6;
+			game.ball.vel.y = -game.options.plateauReboundVerticalVelocity;
 			if (this.pos.y - 400 < -game.yOff) {
 				let iinterval = setInterval(() => {
 					if (game.yOff < -(this.pos.y - 400)) {
-						game.yOff += 2.5;
+						game.yOff += game.options.verticalFrameVelocity;
 					} else {
 						game.yOff = -(this.pos.y - 400);
 						clearInterval(iinterval);
